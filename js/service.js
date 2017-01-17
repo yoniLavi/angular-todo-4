@@ -13,7 +13,7 @@ angular.module('TodoService', [])
 	.factory('TodoAPIService',function($http){
 		TodoAPIService = {
 			getTodos: function(url, data, token) {
-				header = "Authorisation: JWT " + token;
+				var header = "Authorisation: JWT " + token;
 				return $http.get(url, {params:{"username": data}}, header);
 			},
 			createTodo: function(url, data, token) {
@@ -30,4 +30,4 @@ angular.module('TodoService', [])
             }	
 		};
 		return TodoAPIService;
-	})
+	});
