@@ -20,7 +20,7 @@ angular.module('RouteControllers', [])
             if ($scope.registrationForm.$valid) {
                 $scope.registrationUser.username = $scope.user.username;
                 $scope.registrationUser.password = $scope.user.password;
-          
+
                 UserAPIService.callAPI(URL + "accounts/register/", $scope.registrationUser).then(function(results) {
                     $scope.data = results.data;
                     alert("You have successfully registered to Angular Todo");
@@ -48,15 +48,15 @@ angular.module('RouteControllers', [])
         $scope.submitForm = function(){
             if ($scope.todoForm.$valid) {
                 $scope.todo.username = $scope.username;
-                $scope.todos.push($scope.todo);
 
                 TodoAPIService.createTodo(URL + "todo/", $scope.todo, $scope.authToken).then(function(results){
                     console.log(results);
                 }).catch(function(err) {
                     console.log(err);
-                });
-
-                TodoAPIService.getTodos(URL + "todo/", $scope.username, $scope.authToken).then(function(results){
+                }).then(function() {
+                    return TodoAPIService.getTodos(URL + "todo/", $scope.username, $scope.authToken);
+                }).then(function(results){
+                    console.log
                     $scope.todos = results.data;
                     console.log($scope.todos);
                 }).catch(function(err){
